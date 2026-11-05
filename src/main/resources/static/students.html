@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaceTrack — Students</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="students.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+    <aside class="sidebar">
+        <a class="brand" href="../index.html">
+            <span class="brand-mark">P</span>
+            <span>place<span class="brand-light">track</span></span>
+        </a>
+
+        <div class="workspace">
+            <div class="workspace-icon">PT</div>
+            <div>
+                <strong>Placement Cell</strong>
+                <small>Workspace</small>
+            </div>
+            <span class="workspace-arrow">⌄</span>
+        </div>
+
+        <div class="nav-label">WORKSPACE</div>
+        <nav class="nav">
+            <a class="nav-item" href="../index.html">
+                <span class="nav-icon">▦</span><span>Overview</span>
+            </a>
+            <a class="nav-item active" href="students.html">
+                <span class="nav-icon">♙</span><span>Students</span>
+                <span class="active-dot"></span>
+            </a>
+            <a class="nav-item" href="companies.html">
+                <span class="nav-icon">▣</span><span>Companies</span>
+            </a>
+            <a class="nav-item" href="internships.html">
+                <span class="nav-icon">▤</span><span>Internships</span>
+            </a>
+            <a class="nav-item" href="applications.html">
+                <span class="nav-icon">▧</span><span>Applications</span>
+            </a>
+        </nav>
+
+        <div class="nav-label tools-label">PREFERENCES</div>
+        <nav class="nav">
+            <a class="nav-item" href="#"><span class="nav-icon">⚙</span><span>Settings</span></a>
+            <a class="nav-item" href="#"><span class="nav-icon">?</span><span>Help & Support</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <div class="help-icon">✦</div>
+                <strong>Need some help?</strong>
+                <p>Get assistance with your placement workspace.</p>
+                <a href="#">Visit Help Center ↗</a>
+            </div>
+            <div class="profile">
+                <div class="profile-avatar">A</div>
+                <div class="profile-info">
+                    <strong>Admin User</strong>
+                    <small>Administrator</small>
+                </div>
+                <span class="profile-menu">•••</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div class="breadcrumb">
+                <span>Workspace</span>
+                <span class="crumb-divider">/</span>
+                <strong>Students</strong>
+            </div>
+            <div class="top-actions">
+                <div class="system-status"><span class="live-dot"></span>System live</div>
+                <button class="icon-button" aria-label="Notifications">♧</button>
+                <div class="top-avatar">A</div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <section class="welcome-section students-welcome">
+                <div>
+                    <div class="eyebrow"><span class="eyebrow-line"></span> PEOPLE MANAGEMENT</div>
+                    <h1>Students <span class="student-count" id="studentCount">0</span></h1>
+                    <p>Manage student profiles and keep your placement database organized.</p>
+                </div>
+                <button class="primary-button" id="addStudentButton">
+                    <span>＋</span> Add student
+                </button>
+            </section>
+
+            <section class="student-summary">
+                <div class="student-summary-card">
+                    <div class="summary-icon student-bg">♙</div>
+                    <div>
+                        <small>Total students</small>
+                        <strong id="totalStudentCount">0</strong>
+                    </div>
+                </div>
+                <div class="student-summary-card">
+                    <div class="summary-icon company-bg">⌁</div>
+                    <div>
+                        <small>Branches represented</small>
+                        <strong id="branchCount">0</strong>
+                    </div>
+                </div>
+                <div class="student-summary-card">
+                    <div class="summary-icon internship-bg">▤</div>
+                    <div>
+                        <small>Graduation years</small>
+                        <strong id="yearCount">0</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel student-table-panel">
+                <div class="student-toolbar">
+                    <div>
+                        <h2>All students</h2>
+                        <p>Browse and manage registered student profiles</p>
+                    </div>
+                    <div class="student-controls">
+                        <div class="search-box">
+                            <span>⌕</span>
+                            <input type="search" id="studentSearch" placeholder="Search students...">
+                        </div>
+                        <button class="refresh-button" id="refreshStudents">↻ Refresh</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>STUDENT</th>
+                                <th>EMAIL ADDRESS</th>
+                                <th>BRANCH</th>
+                                <th>GRADUATION YEAR</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTable">
+                            <tr><td colspan="5" class="empty-state">Loading students...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span id="tableInfo">Showing 0 students</span>
+                    <span>Student directory</span>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+
+<!-- Add / Edit Student Modal -->
+<div class="modal-overlay" id="studentModal">
+    <div class="student-modal">
+        <div class="modal-header">
+            <div>
+                <div class="eyebrow"><span class="eyebrow-line"></span> STUDENT DIRECTORY</div>
+                <h2 id="modalTitle">Add new student</h2>
+                <p id="modalDescription">Enter the student's details below.</p>
+            </div>
+            <button class="modal-close" id="closeModal" aria-label="Close">×</button>
+        </div>
+
+        <form id="studentForm">
+            <input type="hidden" id="studentId">
+
+            <label for="studentName">Full name</label>
+            <input id="studentName" type="text" placeholder="e.g. Aarav Sharma" required maxlength="100">
+
+            <label for="studentEmail">Email address</label>
+            <input id="studentEmail" type="email" placeholder="name@example.com" required maxlength="150">
+
+            <div class="form-row">
+                <div>
+                    <label for="studentBranch">Branch</label>
+                    <input id="studentBranch" type="text" placeholder="e.g. CSE" required maxlength="80">
+                </div>
+                <div>
+                    <label for="graduationYear">Graduation year</label>
+                    <input id="graduationYear" type="number" placeholder="2027" min="2000" max="2100" required>
+                </div>
+            </div>
+
+            <p class="form-error" id="formError"></p>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button" id="cancelModal">Cancel</button>
+                <button type="submit" class="primary-button" id="saveStudentButton">Save student</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="students.js"></script>
+</body>
+</html>

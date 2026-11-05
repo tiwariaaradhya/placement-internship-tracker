@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internships | Placement Tracker</title>
+    <link rel="stylesheet" href="../theme.css">
+
+    <style>
+        .internships-layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .internships-sidebar {
+            width: 250px;
+            min-width: 250px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 17px;
+            background: #0B100C;
+            border-right: 1px solid var(--border);
+        }
+
+        .internships-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .internships-topbar {
+            min-height: 68px;
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+            background: #0B100C;
+        }
+
+        .internships-main {
+            padding: 35px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        .internship-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 40px;
+            font-family: var(--heading);
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .internship-brand-icon {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            background: var(--accent);
+            color: #080B09;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+
+        .internship-nav-label {
+            color: var(--subtle);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin: 0 10px 12px;
+        }
+
+        .internship-nav {
+            display: grid;
+            gap: 6px;
+        }
+
+        .internship-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 9px;
+            color: #A0AA99;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .internship-nav a:hover {
+            background: #FFFFFF08;
+            color: white;
+        }
+
+        .internship-nav a.active {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid #B7F50020;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 25px;
+        }
+
+        .back-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: var(--accent);
+            font-size: 12px;
+            transition: .2s;
+        }
+
+        .back-dashboard:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+        }
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-eyebrow {
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .page-heading h1 {
+            font-family: var(--heading);
+            font-size: clamp(27px, 3vw, 36px);
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .internships-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .internships-toolbar h2 {
+            font-family: var(--heading);
+            font-size: 19px;
+        }
+
+        .toolbar-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .internship-search {
+            width: 240px;
+            padding: 12px 15px;
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+        }
+
+        .internship-search:focus,
+        .form-input:focus {
+            border-color: var(--accent);
+        }
+
+        .internship-btn {
+            padding: 11px 17px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 12px;
+            transition: .2s;
+            cursor: pointer;
+        }
+
+        .internship-btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #080B09;
+        }
+
+        .internship-btn-primary:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 0 20px #B7F50030;
+        }
+
+        .internship-btn-secondary {
+            background: var(--surface-2);
+            color: var(--text);
+        }
+
+        .internship-btn-secondary:hover {
+            border-color: var(--accent);
+        }
+
+        .internship-panel {
+            background: linear-gradient(145deg, #111711, #0C110D);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .panel-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-heading h3 {
+            font-family: var(--heading);
+            font-size: 15px;
+        }
+
+        #internshipCount {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .internship-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        .internship-table th {
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: #FFFFFF04;
+        }
+
+        .internship-table td {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .internship-table tbody tr:hover {
+            background: #B7F50008;
+        }
+
+        .internship-id {
+            color: var(--accent) !important;
+        }
+
+        .internship-title {
+            font-weight: 600;
+        }
+
+        .skills-cell {
+            max-width: 200px;
+            overflow-wrap: anywhere;
+            color: var(--muted) !important;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 7px 11px;
+            color: var(--text);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .delete-btn:hover {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .empty-state {
+            padding: 45px !important;
+            text-align: center;
+            color: var(--muted) !important;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #000000C9;
+            backdrop-filter: blur(7px);
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .internship-modal {
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 27px;
+            background: #101510;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 20px 80px #00000080;
+        }
+
+        .internship-modal h2 {
+            font-family: var(--heading);
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--surface-2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .internship-toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 2000;
+            padding: 13px 20px;
+            background: var(--surface-3);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 9px;
+            opacity: 0;
+            transform: translateY(15px);
+            pointer-events: none;
+            transition: .25s;
+        }
+
+        .internship-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media(max-width: 850px) {
+            .internships-sidebar {
+                width: 205px;
+                min-width: 205px;
+            }
+
+            .internships-main {
+                padding: 25px 20px;
+            }
+
+            .internships-topbar {
+                padding: 12px 20px;
+            }
+        }
+
+        @media(max-width: 650px) {
+            .internships-layout {
+                flex-direction: column;
+            }
+
+            .internships-sidebar {
+                width: 100%;
+                min-width: 0;
+                min-height: auto;
+                padding: 16px;
+            }
+
+            .internship-brand {
+                margin-bottom: 18px;
+            }
+
+            .internship-nav {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .sidebar-bottom {
+                padding-top: 15px;
+            }
+
+            .internships-main {
+                padding: 23px 15px;
+            }
+
+            .internships-toolbar {
+                align-items: stretch;
+            }
+
+            .toolbar-right {
+                width: 100%;
+            }
+
+            .internship-search {
+                width: 100%;
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="internships-layout">
+
+    <aside class="internships-sidebar">
+
+        <div class="internship-brand">
+            <span class="internship-brand-icon">P</span>
+            <span>PLACEMENT<span style="color:var(--accent)">.TRACKER</span></span>
+        </div>
+
+        <div class="internship-nav-label">MAIN MENU</div>
+
+        <nav class="internship-nav">
+            <a href="../index.html">▦ &nbsp; Dashboard</a>
+            <a href="students.html">♙ &nbsp; Students</a>
+            <a href="companies.html">▣ &nbsp; Companies</a>
+            <a href="internships.html" class="active">◈ &nbsp; Internships</a>
+            <a href="applications.html">▤ &nbsp; Applications</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../index.html" class="back-dashboard">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+    </aside>
+
+    <div class="internships-content">
+
+        <header class="internships-topbar">
+            <a href="../index.html" class="back-dashboard">
+                ← Back to Dashboard
+            </a>
+
+            <span style="color:var(--muted);font-size:12px;">
+                Placement Management System
+            </span>
+        </header>
+
+        <main class="internships-main">
+
+            <section class="page-heading">
+                <div class="page-eyebrow">MANAGEMENT / INTERNSHIPS</div>
+                <h1>Internships</h1>
+                <p>Manage internship opportunities and requirements.</p>
+            </section>
+
+            <section class="internships-toolbar">
+                <div>
+                    <h2>All Internships</h2>
+                    <p style="color:var(--muted);font-size:12px;margin-top:5px;">
+                        View, add, update and manage internship records.
+                    </p>
+                </div>
+
+                <div class="toolbar-right">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        class="internship-search"
+                        placeholder="Search internships..."
+                    >
+
+                    <button
+                        type="button"
+                        class="internship-btn internship-btn-primary"
+                        id="addInternshipBtn">
+                        + Add Internship
+                    </button>
+                </div>
+            </section>
+
+            <section class="internship-panel">
+
+                <div class="panel-heading">
+                    <h3>Internship Records</h3>
+                    <span id="internshipCount">0 Internships</span>
+                </div>
+
+                <div class="table-scroll">
+                    <table class="internship-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Company ID</th>
+                                <th>Location</th>
+                                <th>Stipend</th>
+                                <th>Duration</th>
+                                <th>Required Skills</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="internshipsTable">
+                            <tr>
+                                <td colspan="8" class="empty-state">
+                                    Loading internships...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- INTERNSHIP MODAL -->
+<div class="modal-overlay" id="internshipModal">
+
+    <div class="internship-modal">
+
+        <h2 id="modalTitle">Add Internship</h2>
+
+        <form id="internshipForm">
+
+            <input type="hidden" id="internshipId">
+
+            <div class="form-group">
+                <label for="internshipTitle">Internship Title</label>
+                <input
+                    type="text"
+                    id="internshipTitle"
+                    class="form-input"
+                    placeholder="e.g. Java Developer Intern"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="companyId">Company ID</label>
+                <input
+                    type="number"
+                    id="companyId"
+                    class="form-input"
+                    placeholder="Enter existing company ID"
+                    min="1"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="internshipLocation">Location</label>
+                <input
+                    type="text"
+                    id="internshipLocation"
+                    class="form-input"
+                    placeholder="Enter internship location"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="stipend">Stipend (INR)</label>
+                <input
+                    type="number"
+                    id="stipend"
+                    class="form-input"
+                    placeholder="e.g. 15000"
+                    min="0"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Duration</label>
+                <input
+                    type="text"
+                    id="duration"
+                    class="form-input"
+                    placeholder="e.g. 3 Months"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="requiredSkills">Required Skills</label>
+                <textarea
+                    id="requiredSkills"
+                    class="form-input"
+                    rows="3"
+                    placeholder="Java, SQL, Spring Boot"
+                    required></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button
+                    type="button"
+                    class="internship-btn internship-btn-secondary"
+                    id="cancelBtn">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="internship-btn internship-btn-primary"
+                    id="saveBtn">
+                    Save Internship
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div id="toast" class="internship-toast"></div>
+
+<script src="internships.js"></script>
+
+</body>
+</html>

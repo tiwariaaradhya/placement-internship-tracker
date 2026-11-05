@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students | Placement Tracker</title>
+
+    <link rel="stylesheet" href="../theme.css">
+
+    <style>
+        /* PAGE LAYOUT */
+        .students-layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .students-sidebar {
+            width: 250px;
+            min-width: 250px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 17px;
+            background: #0B100C;
+            border-right: 1px solid var(--border);
+        }
+
+        .students-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .students-topbar {
+            min-height: 68px;
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+            background: #0B100C;
+        }
+
+        .students-main {
+            padding: 35px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        /* BRAND */
+        .student-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 40px;
+            font-family: var(--heading);
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .student-brand-icon {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            background: var(--accent);
+            color: #080B09;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+
+        /* NAVIGATION */
+        .student-nav-label {
+            color: var(--subtle);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin: 0 10px 12px;
+        }
+
+        .student-nav {
+            display: grid;
+            gap: 6px;
+        }
+
+        .student-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 9px;
+            color: #A0AA99;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .student-nav a:hover {
+            background: #FFFFFF08;
+            color: white;
+        }
+
+        .student-nav a.active {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid #B7F50020;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 25px;
+        }
+
+        /* BACK BUTTON */
+        .back-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: var(--accent);
+            font-size: 12px;
+            transition: .2s;
+        }
+
+        .back-dashboard:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+        }
+
+        /* HEADER */
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-eyebrow {
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .page-heading h1 {
+            font-family: var(--heading);
+            font-size: clamp(27px, 3vw, 36px);
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* TOOLBAR */
+        .students-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .students-toolbar h2 {
+            font-family: var(--heading);
+            font-size: 19px;
+        }
+
+        .toolbar-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .student-search {
+            width: 240px;
+            padding: 12px 15px;
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+        }
+
+        .student-search:focus,
+        .form-input:focus {
+            border-color: var(--accent);
+        }
+
+        /* BUTTONS */
+        .student-btn {
+            padding: 11px 17px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 12px;
+            transition: .2s;
+        }
+
+        .student-btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #080B09;
+        }
+
+        .student-btn-primary:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 0 20px #B7F50030;
+        }
+
+        .student-btn-secondary {
+            background: var(--surface-2);
+            color: var(--text);
+        }
+
+        .student-btn-secondary:hover {
+            border-color: var(--accent);
+        }
+
+        /* TABLE */
+        .student-panel {
+            background: linear-gradient(145deg, #111711, #0C110D);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .panel-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-heading h3 {
+            font-family: var(--heading);
+            font-size: 15px;
+        }
+
+        #studentCount {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        .student-table th {
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: #FFFFFF04;
+        }
+
+        .student-table td {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .student-table tbody tr:hover {
+            background: #B7F50008;
+        }
+
+        .student-id {
+            color: var(--accent) !important;
+        }
+
+        .student-name {
+            font-weight: 600;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 7px 11px;
+            color: var(--text);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .delete-btn:hover {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .empty-state {
+            padding: 45px !important;
+            text-align: center;
+            color: var(--muted) !important;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #000000C9;
+            backdrop-filter: blur(7px);
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .student-modal {
+            width: 100%;
+            max-width: 480px;
+            padding: 27px;
+            background: #101510;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 20px 80px #00000080;
+        }
+
+        .student-modal h2 {
+            font-family: var(--heading);
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--surface-2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        /* TOAST */
+        .student-toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 2000;
+            padding: 13px 20px;
+            background: var(--surface-3);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 9px;
+            opacity: 0;
+            transform: translateY(15px);
+            pointer-events: none;
+            transition: .25s;
+        }
+
+        .student-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 850px) {
+            .students-sidebar {
+                width: 205px;
+                min-width: 205px;
+            }
+
+            .students-main {
+                padding: 25px 20px;
+            }
+
+            .students-topbar {
+                padding: 12px 20px;
+            }
+        }
+
+        @media(max-width: 650px) {
+            .students-layout {
+                flex-direction: column;
+            }
+
+            .students-sidebar {
+                width: 100%;
+                min-width: 0;
+                min-height: auto;
+                padding: 16px;
+            }
+
+            .student-brand {
+                margin-bottom: 18px;
+            }
+
+            .student-nav {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .sidebar-bottom {
+                padding-top: 15px;
+            }
+
+            .students-main {
+                padding: 23px 15px;
+            }
+
+            .students-toolbar {
+                align-items: stretch;
+            }
+
+            .toolbar-right {
+                width: 100%;
+            }
+
+            .student-search {
+                width: 100%;
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="students-layout">
+
+    <aside class="students-sidebar">
+
+        <div class="student-brand">
+            <span class="student-brand-icon">P</span>
+            <span>PLACEMENT<span style="color:var(--accent)">.TRACKER</span></span>
+        </div>
+
+        <div class="student-nav-label">MAIN MENU</div>
+
+        <nav class="student-nav">
+            <a href="../index.html">▦ &nbsp; Dashboard</a>
+            <a href="students.html" class="active">♙ &nbsp; Students</a>
+            <a href="companies.html">▣ &nbsp; Companies</a>
+            <a href="internships.html">◈ &nbsp; Internships</a>
+            <a href="applications.html">▤ &nbsp; Applications</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../index.html" class="back-dashboard">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+    </aside>
+
+    <div class="students-content">
+
+        <header class="students-topbar">
+            <a href="../index.html" class="back-dashboard">
+                ← Back to Dashboard
+            </a>
+
+            <span style="color:var(--muted);font-size:12px;">
+                Placement Management System
+            </span>
+        </header>
+
+        <main class="students-main">
+
+            <section class="page-heading">
+                <div class="page-eyebrow">MANAGEMENT / STUDENTS</div>
+                <h1>Students</h1>
+                <p>Manage student records and academic information.</p>
+            </section>
+
+            <section class="students-toolbar">
+                <div>
+                    <h2>All Students</h2>
+                    <p style="color:var(--muted);font-size:12px;margin-top:5px;">
+                        View, add, update and manage student records.
+                    </p>
+                </div>
+
+                <div class="toolbar-right">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        class="student-search"
+                        placeholder="Search students..."
+                    >
+
+                    <button
+                        type="button"
+                        class="student-btn student-btn-primary"
+                        id="addStudentBtn">
+                        + Add Student
+                    </button>
+                </div>
+            </section>
+
+            <section class="student-panel">
+
+                <div class="panel-heading">
+                    <h3>Student Records</h3>
+                    <span id="studentCount">0 Students</span>
+                </div>
+
+                <div class="table-scroll">
+                    <table class="student-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Branch</th>
+                                <th>Graduation Year</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentsTable">
+                            <tr>
+                                <td colspan="6" class="empty-state">
+                                    Loading students...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- STUDENT MODAL -->
+<div class="modal-overlay" id="studentModal">
+
+    <div class="student-modal">
+
+        <h2 id="modalTitle">Add Student</h2>
+
+        <form id="studentForm">
+
+            <input type="hidden" id="studentId">
+
+            <div class="form-group">
+                <label for="studentName">Full Name</label>
+                <input
+                    type="text"
+                    id="studentName"
+                    class="form-input"
+                    placeholder="Enter student name"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="studentEmail">Email Address</label>
+                <input
+                    type="email"
+                    id="studentEmail"
+                    class="form-input"
+                    placeholder="Enter email address"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="studentBranch">Branch</label>
+                <input
+                    type="text"
+                    id="studentBranch"
+                    class="form-input"
+                    placeholder="Computer Science"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="graduationYear">Graduation Year</label>
+                <input
+                    type="number"
+                    id="graduationYear"
+                    class="form-input"
+                    placeholder="2027"
+                    min="2000"
+                    max="2100"
+                    required>
+            </div>
+
+            <div class="modal-actions">
+                <button
+                    type="button"
+                    class="student-btn student-btn-secondary"
+                    id="cancelBtn">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="student-btn student-btn-primary"
+                    id="saveBtn">
+                    Save Student
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div id="toast" class="student-toast"></div>
+
+<script src="students.js"></script>
+
+</body>
+</html>

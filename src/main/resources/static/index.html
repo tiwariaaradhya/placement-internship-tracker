@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080B09">
+
+    <title>PlaceTrack — Dashboard</title>
+
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="index.html" class="brand">
+            <span class="brand-mark">P</span>
+            <span>place<span class="brand-light">track</span></span>
+        </a>
+
+        <div class="workspace">
+            <div class="workspace-icon">PT</div>
+            <div>
+                <strong>Placement Cell</strong>
+                <small>Workspace</small>
+            </div>
+            <span class="workspace-arrow">⌄</span>
+        </div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="nav">
+
+            <a href="index.html" class="nav-item active">
+                <span class="nav-icon">▦</span>
+                <span>Overview</span>
+                <span class="active-dot"></span>
+            </a>
+
+            <a href="pages/students.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>Students</span>
+            </a>
+
+            <a href="pages/companies.html" class="nav-item">
+                <span class="nav-icon">▣</span>
+                <span>Companies</span>
+            </a>
+
+            <a href="pages/internships.html" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Internships</span>
+            </a>
+
+            <a href="pages/applications.html" class="nav-item">
+                <span class="nav-icon">▧</span>
+                <span>Applications</span>
+            </a>
+
+        </nav>
+
+        <div class="nav-label">PREFERENCES</div>
+
+        <nav class="nav">
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">?</span>
+                <span>Help & Support</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="help-card">
+                <div class="help-icon">✦</div>
+                <strong>Need some help?</strong>
+                <p>Manage your placement workspace with ease.</p>
+                <a href="#">Explore workspace ↗</a>
+            </div>
+
+            <div class="profile">
+                <div class="profile-avatar">A</div>
+
+                <div class="profile-info">
+                    <strong>Admin User</strong>
+                    <small>Administrator</small>
+                </div>
+
+                <span class="profile-menu">•••</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <span>Workspace</span>
+                <span class="crumb-divider">/</span>
+                <strong>Overview</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="system-status">
+                    <span class="live-dot"></span>
+                    System live
+                </div>
+
+                <button class="icon-button" aria-label="Notifications">
+                    ♧
+                </button>
+
+                <div class="top-avatar">A</div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD CONTENT -->
+        <div class="page-content">
+
+            <!-- WELCOME SECTION -->
+            <section class="welcome-section dashboard-welcome">
+
+                <div>
+                    <div class="eyebrow">
+                        <span class="eyebrow-line"></span>
+                        PLACEMENT MANAGEMENT
+                    </div>
+
+                    <h1>Dashboard<span class="title-dot">.</span></h1>
+
+                    <p>
+                        Welcome back! Here's what's happening in your placement workspace.
+                    </p>
+
+                    <div class="dashboard-date" id="currentDate">
+                        Loading date...
+                    </div>
+                </div>
+
+                <div class="welcome-actions">
+
+                    <button class="secondary-button" id="refreshButton">
+                        <span>↻</span>
+                        Refresh
+                    </button>
+
+                    <a href="pages/applications.html" class="primary-button">
+                        <span>＋</span>
+                        View applications
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="stats-grid">
+
+                <article class="stat-card">
+
+                    <div class="stat-top">
+                        <span class="stat-label">TOTAL STUDENTS</span>
+                        <span class="stat-icon">♙</span>
+                    </div>
+
+                    <div class="stat-value" id="totalStudents">0</div>
+
+                    <div class="stat-bottom">
+                        <span class="stat-indicator"></span>
+                        <span>Registered students</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-top">
+                        <span class="stat-label">COMPANIES</span>
+                        <span class="stat-icon">▣</span>
+                    </div>
+
+                    <div class="stat-value" id="totalCompanies">0</div>
+
+                    <div class="stat-bottom">
+                        <span class="stat-indicator"></span>
+                        <span>Available companies</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-top">
+                        <span class="stat-label">INTERNSHIPS</span>
+                        <span class="stat-icon">▤</span>
+                    </div>
+
+                    <div class="stat-value" id="totalInternships">0</div>
+
+                    <div class="stat-bottom">
+                        <span class="stat-indicator"></span>
+                        <span>Available opportunities</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card featured-stat">
+
+                    <div class="stat-top">
+                        <span class="stat-label">APPLICATIONS</span>
+                        <span class="stat-icon">▧</span>
+                    </div>
+
+                    <div class="stat-value" id="totalApplications">0</div>
+
+                    <div class="stat-bottom">
+                        <span class="stat-indicator"></span>
+                        <span>Total applications submitted</span>
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- ANALYTICS -->
+            <section class="analytics-grid">
+
+                <!-- APPLICATION ACTIVITY -->
+                <article class="panel activity-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <div class="panel-eyebrow">ANALYTICS</div>
+                            <h2>Application activity</h2>
+                            <p>Application submissions over time</p>
+                        </div>
+
+                        <select id="activityRange" class="range-select">
+                            <option value="7">Last 7 days</option>
+                            <option value="14">Last 14 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                        </select>
+
+                    </div>
+
+                    <div class="chart-summary">
+                        <strong id="activityTotal">0</strong>
+                        <span>Applications in selected period</span>
+                    </div>
+
+                    <div class="activity-chart" id="activityChart">
+                        <div class="chart-loading">
+                            Loading activity...
+                        </div>
+                    </div>
+
+                    <div class="chart-labels" id="chartLabels"></div>
+
+                </article>
+
+
+                <!-- APPLICATION STATUS -->
+                <article class="panel status-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-eyebrow">OVERVIEW</div>
+                            <h2>Application status</h2>
+                            <p>Current application distribution</p>
+                        </div>
+                    </div>
+
+                    <div class="donut-container">
+
+                        <div class="donut-chart" id="statusDonut">
+                            <div class="donut-center">
+                                <strong id="donutTotal">0</strong>
+                                <span>Applications</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="status-legend">
+
+                        <div class="legend-item">
+                            <span class="legend-dot pending-dot"></span>
+                            <span>Pending</span>
+                            <strong id="pendingApplications">0</strong>
+                            <small id="pendingPercent">0%</small>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot accepted-dot"></span>
+                            <span>Accepted</span>
+                            <strong id="acceptedApplications">0</strong>
+                            <small id="acceptedPercent">0%</small>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot rejected-dot"></span>
+                            <span>Rejected</span>
+                            <strong id="rejectedApplications">0</strong>
+                            <small id="rejectedPercent">0%</small>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- LOWER SECTION -->
+            <section class="bottom-grid">
+
+                <!-- RECENT APPLICATIONS -->
+                <article class="panel recent-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <div class="panel-eyebrow">LATEST RECORDS</div>
+                            <h2>Recent applications</h2>
+                            <p>Latest applications in your workspace</p>
+                        </div>
+
+                        <a href="pages/applications.html" class="view-all">
+                            View all ↗
+                        </a>
+
+                    </div>
+
+                    <div class="table-wrap">
+
+                        <table class="dashboard-table">
+
+                            <thead>
+                                <tr>
+                                    <th>APPLICATION</th>
+                                    <th>STUDENT</th>
+                                    <th>INTERNSHIP</th>
+                                    <th>DATE</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="applicationsTable">
+
+                                <tr>
+                                    <td colspan="5" class="empty-state">
+                                        Loading applications...
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </article>
+
+
+                <!-- QUICK ACTIONS -->
+                <article class="panel quick-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-eyebrow">SHORTCUTS</div>
+                            <h2>Quick actions</h2>
+                            <p>Manage your workspace</p>
+                        </div>
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <a href="pages/students.html" class="quick-action">
+                            <span class="quick-action-icon">♙</span>
+
+                            <span>
+                                <strong>Manage students</strong>
+                                <small>View student directory</small>
+                            </span>
+
+                            <span class="quick-arrow">↗</span>
+                        </a>
+
+
+                        <a href="pages/companies.html" class="quick-action">
+                            <span class="quick-action-icon">▣</span>
+
+                            <span>
+                                <strong>Manage companies</strong>
+                                <small>Explore company records</small>
+                            </span>
+
+                            <span class="quick-arrow">↗</span>
+                        </a>
+
+
+                        <a href="pages/internships.html" class="quick-action">
+                            <span class="quick-action-icon">▤</span>
+
+                            <span>
+                                <strong>Manage internships</strong>
+                                <small>Explore opportunities</small>
+                            </span>
+
+                            <span class="quick-arrow">↗</span>
+                        </a>
+
+
+                        <a href="pages/applications.html" class="quick-action">
+                            <span class="quick-action-icon">▧</span>
+
+                            <span>
+                                <strong>Manage applications</strong>
+                                <small>Track application status</small>
+                            </span>
+
+                            <span class="quick-arrow">↗</span>
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="dashboard-footer">
+                <span>PlaceTrack © 2026</span>
+                <span>Built for smarter placement management.</span>
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast" role="status"></div>
+
+
+<!-- DASHBOARD JAVASCRIPT -->
+<script src="dashboard.js"></script>
+
+</body>
+</html>
